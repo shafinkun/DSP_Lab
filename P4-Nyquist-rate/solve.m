@@ -1,12 +1,30 @@
-% Experiment 4: Sampling
-clc; clear; close all;
-f = 10; t = 0:0.001:0.2; 
-x_c = sin(2*pi*f*t); % "Continuous" signal
+f = 10;
+t = 0:0.001:0.2;
+sine_wave = sin(2*pi*f*t);
 
-fs_nyq = 20; n_nyq = 0:1/fs_nyq:0.2; x_nyq = sin(2*pi*f*n_nyq);
-fs_over = 50; n_over = 0:1/fs_over:0.2; x_over = sin(2*pi*f*n_over);
-fs_under = 12; n_under = 0:1/fs_under:0.2; x_under = sin(2*pi*f*n_under);
+nyquist_f = 20;
+nyquist_n = 0:1/nyquist_f:0.2;
+nyquist_sine_wave = sin(2*pi*nyquist_n*f);
 
-subplot(3,1,1); plot(t, x_c, 'k'); hold on; stem(n_nyq, x_nyq, 'r'); title('Nyquist Rate (20 Hz)');
-subplot(3,1,2); plot(t, x_c, 'k'); hold on; stem(n_over, x_over, 'b'); title('Over-sampled (50 Hz)');
-subplot(3,1,3); plot(t, x_c, 'k'); hold on; stem(n_under, x_under, 'g'); title('Under-sampled (12 Hz)');
+over_f = 50;
+over_n = 0:1/over_f:0.2;
+over_sine_wave = sin(2*pi*over_n*f);
+
+under_f = 15;
+under_n = 0:1/under_f:0.2;
+under_sine_wave = sin(2*pi*under_n*f);
+
+subplot(3,1,1);
+plot(t, sine_wave, 'k');
+hold on;
+stem(nyquist_n, nyquist_sine_wave, 'filled', 'b');
+
+subplot(3,1,2);
+plot(t, sine_wave, 'k');
+hold on;
+stem(over_n, over_sine_wave, 'filled', 'g');
+
+subplot(3,1,3);
+plot(t, sine_wave, 'k');
+hold on;
+stem(under_n, under_sine_wave, 'filled', 'r');
