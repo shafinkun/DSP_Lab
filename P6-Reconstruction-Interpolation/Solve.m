@@ -1,15 +1,21 @@
-t = 0:0.001:0.1; 
-f = 20; 
-x_orig = sin(2*pi*f*t);
+f = 10;
+t = 0:0.001:0.2;
 
-fs = 100; 
-ts = 0:1/fs:0.1; 
-x_samp = sin(2*pi*f*ts);
-x_recon = interp1(ts, x_samp, t, 'spline');
+original = sin(2*pi*f*t);
 
-plot(t, x_orig, 'k', 'LineWidth', 2); 
-hold on;
-stem(ts, x_samp, 'r');
-plot(t, x_recon, 'b--', 'LineWidth', 1.5);
-title('Signal Reconstruction'); 
-legend('Original', 'Samples', 'Reconstructed');
+fs = 50;
+ts = 0:1/fs:0.2;
+sample = sin(2*pi*f*ts);
+
+reconstruction = interp1(ts, sample, t, 'spline');
+
+plot(t, original, 'g')
+hold on
+stem(ts, sample, 'filled', 'r')
+plot(t, reconstruction, 'b')
+
+title('Signal Reconstruction')
+legend('Original', 'Sampled', 'Reconstructed')
+xlabel('Time (s)')
+ylabel('Amplitude')
+grid on
